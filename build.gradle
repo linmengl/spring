@@ -1,4 +1,4 @@
-buildscript {
+buildscript {//gradle脚本自身需要使用的资源
 	ext {
 		springBootVersion = '2.1.0.RELEASE'
 	}
@@ -9,25 +9,34 @@ buildscript {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
 }
-
-apply plugin: 'java'
-apply plugin: 'ide'
+//应用插件
+apply plugin: 'java'//提供诸如编译，测试，打包等一些功能
+apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.springboot'
 version = '0.0.1-SNAPSHOT'
+//jdk版本
 sourceCompatibility = 1.8
 
 repositories {
+	mavenLocal()
 	mavenCentral()
 }
 
-
+//	gradle会在下载SpringBoot jar的同时，会将SpringBoot本身所需要的依赖也一同下载
+//	项目所依赖的Jar包。有两种写法
+//	全写： compile group: “group-name”, name:”jar-name”, version:”version”
+//	简写：参考 compile(‘org.apache.commons:commons-io:1.3.2’)
 dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-cache')
 	implementation('org.springframework.boot:spring-boot-starter-data-redis')
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	compileOnly('org.projectlombok:lombok')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	compile group: 'com.google.guava', name: 'guava', version: '27.0-jre'
+	compile group: 'com.alibaba', name: 'fastjson', version: '1.2.51'
+//	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+	implementation('org.apache.commons:commons-lang3:3.8.1')
 }

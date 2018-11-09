@@ -18,6 +18,7 @@ public class TestController {
 	@RequestMapping("/a")
 	public JsonResult test(int count, String a){
 		System.out.println("aaa");
+		log.info("fffff");
 		return JsonResult.buildSuccessResult("success",null);
 	}
 
